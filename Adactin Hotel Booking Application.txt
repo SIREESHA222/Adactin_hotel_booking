@@ -1,0 +1,116 @@
+package project;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.JavascriptExecutor;
+
+import graphql.org.antlr.v4.runtime.tree.xpath.XPath;
+
+public class Ex_1 {
+
+	public static void main(String[] args) throws InterruptedException {
+	
+		WebDriver driver = new ChromeDriver();
+		System.out.println("browswer started");
+		
+		driver.get("https://adactinhotelapp.com/");
+		
+		Thread.sleep(5000);
+		
+		driver.manage().window().maximize();
+		
+		Thread.sleep(2000);
+		
+		WebElement username =driver.findElement(By.name("username"));
+		username.sendKeys("siri8286");
+		
+		WebElement password = driver.findElement(By.id("password"));
+		password.sendKeys("Siri@123");
+		
+		WebElement loginbuttonAdactin = driver.findElement(By.name("login"));
+		Thread.sleep(2000);
+		loginbuttonAdactin.click();
+		
+		
+		WebElement locdropdown= driver.findElement(By.id("location"));
+		Select obj1 = new Select(locdropdown);
+		obj1.selectByValue("Sydney");
+		
+		Thread.sleep(2000);
+		
+		WebElement Hotel=driver.findElement(By.id("hotels"));
+		Select obj2 = new Select(Hotel);
+		obj2.selectByIndex(1);
+		
+		WebElement Rooomtype=driver.findElement(By.id("room_type"));
+		Select obj3 = new Select(Rooomtype);
+		obj3.selectByIndex(1);
+		
+		WebElement  rooms = driver.findElement(By.id("room_nos"));
+		Select obj4 = new Select(rooms);
+		obj4.selectByIndex(1);
+		
+		driver.findElement(By.xpath("//*[@id=\"datepick_in\"]")).sendKeys("20/6/23");
+		driver.findElement(By.xpath("//*[@id=\"datepick_out\"]")).sendKeys("22/6/23");
+		WebElement Adultsroom=driver.findElement(By.xpath("//*[@id=\"adult_room\"]"));
+		Select obj5 = new Select(Adultsroom);
+		obj5.selectByIndex(1);
+		
+		WebElement Childrenroom=driver.findElement(By.xpath("//*[@id=\"child_room\"]"));
+		Select obj6 = new Select(Childrenroom);
+		obj6.selectByIndex(1);
+		Thread.sleep(3000);
+		//click the search 
+		driver.findElement(By.xpath("//*[@id=\"Submit\"]")).click();
+		Thread.sleep(5000);
+		//click button
+		WebElement Button = driver.findElement(By.xpath("//*[@id=\"radiobutton_0\"]"));
+		Button.click();
+		//continue button
+		WebElement continuebutton =driver.findElement(By.xpath("//*[@id=\"continue\"]"));
+		continuebutton.click();
+		//Details
+		driver.findElement(By.id("first_name")).sendKeys("Sireesha");
+		driver.findElement(By.id("last_name")).sendKeys("Karini");
+		driver.findElement(By.id("address")).sendKeys("Kakinada  test address");
+		driver.findElement(By.id("cc_num")).sendKeys("5342002229854165");
+		WebElement cardtype= driver.findElement(By.xpath("//*[@id=\"cc_type\"]"));
+		Select obj7 = new Select(cardtype);
+		obj7.selectByIndex(1);
+
+		WebElement cardmonth= driver.findElement(By.id("cc_exp_month"));
+		Select obj8 = new Select(cardmonth);
+		obj8.selectByIndex(12);
+		
+		WebElement cardyear= driver.findElement(By.id("cc_exp_year"));
+		Select obj9 = new Select(cardyear);
+		obj9.selectByValue("2030");
+		
+		driver.findElement(By.xpath("//*[@id=\"cc_cvv\"]")).sendKeys("852");
+		driver.findElement(By.xpath("//*[@id=\"book_now\"]")).click();
+		System.out.println("Hotel booked successfully");
+		Thread.sleep(5000);
+		JavascriptExecutor ss = (JavascriptExecutor) driver;
+		ss.executeScript("window.scrollBy(0,300)", "");
+		driver.findElement(By.xpath("//*[@id=\"my_itinerary\"]")).click();
+		Thread.sleep(3000);
+		// cancel hotel code
+		driver.findElement(By.xpath("//*[@id=\"booked_form\"]/table/tbody/tr[2]/td/table/tbody/tr[2]/td[1]/input")).click();
+		
+		driver.findElement(By.xpath("//*[@id=\"booked_form\"]/table/tbody/tr[3]/td/input[1]")).click();
+		Thread.sleep(3000);
+		Alert simplealert=driver.switchTo().alert();
+		
+		simplealert.accept();
+		
+		driver.findElement(By.xpath("//*[@id=\"logout\"]")).click();
+		
+		System.out.println("application logged out successfully");
+		Thread.sleep(3000);
+		driver.close();
+	}
+  }
